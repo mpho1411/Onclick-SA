@@ -1,1 +1,94 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OneClick SA V2</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f4f6f9}
+header{background:#0077cc;color:white;padding:25px;text-align:center}
+.container{max-width:1200px;margin:auto;padding:20px}
+#search{width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;margin-bottom:15px}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+button{padding:10px 14px;border:none;border-radius:8px;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+.card{background:white;padding:15px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+.card a{display:inline-block;margin-top:10px;background:#0077cc;color:#fff;padding:8px 12px;text-decoration:none;border-radius:6px}
+</style>
+</head>
+<body>
+<header>
+<h1>🇿🇦 OneClick SA</h1>
+<p>South African stores in one place</p>
+</header>
+<div class="container">
+<input id="search" placeholder="Search stores..." onkeyup="searchStores()">
+<div class="filters">
+<button onclick="filterCategory('all')">All</button>
+<button onclick="filterCategory('Groceries')">Groceries</button>
+<button onclick="filterCategory('Fashion')">Fashion</button>
+<button onclick="filterCategory('Electronics')">Electronics</button>
+<button onclick="filterCategory('Home')">Home</button>
+<button onclick="filterCategory('Automotive')">Automotive</button>
+<button onclick="filterCategory('Mobile')">Mobile</button>
+</div>
+<div class="grid" id="storeGrid"></div>
+</div>
+<script>
+const stores=[
+{name:'Takealot',cat:'Electronics',url:'https://www.takealot.com'},
+{name:'Makro',cat:'Groceries',url:'https://www.makro.co.za'},
+{name:'Game',cat:'Electronics',url:'https://www.game.co.za'},
+{name:'Checkers',cat:'Groceries',url:'https://www.checkers.co.za'},
+{name:'Shoprite',cat:'Groceries',url:'https://www.shoprite.co.za'},
+{name:'Pick n Pay',cat:'Groceries',url:'https://www.pnp.co.za'},
+{name:'Woolworths',cat:'Groceries',url:'https://www.woolworths.co.za'},
+{name:'SPAR',cat:'Groceries',url:'https://www.spar.co.za'},
+{name:'Boxer',cat:'Groceries',url:'https://www.boxer.co.za'},
+{name:'Food Lovers Market',cat:'Groceries',url:'https://www.foodloversmarket.co.za'},
+{name:'Mr Price',cat:'Fashion',url:'https://www.mrp.com'},
+{name:'Mr Price Home',cat:'Home',url:'https://www.mrphome.com'},
+{name:'PEP',cat:'Fashion',url:'https://www.pepstores.com'},
+{name:'PEP Home',cat:'Home',url:'https://www.pepstores.com'},
+{name:'Jet',cat:'Fashion',url:'https://www.jetonline.co.za'},
+{name:'Jet Home',cat:'Home',url:'https://www.jetonline.co.za'},
+{name:'Ackermans',cat:'Fashion',url:'https://www.ackermans.co.za'},
+{name:'Foschini',cat:'Fashion',url:'https://www.foschini.co.za'},
+{name:'Markham',cat:'Fashion',url:'https://www.markham.co.za'},
+{name:'Sportscene',cat:'Fashion',url:'https://www.sportscene.co.za'},
+{name:'Totalsports',cat:'Fashion',url:'https://www.totalsports.co.za'},
+{name:'Truworths',cat:'Fashion',url:'https://www.truworths.co.za'},
+{name:'Identity',cat:'Fashion',url:'https://www.identity.co.za'},
+{name:'The Fix',cat:'Fashion',url:'https://www.thefix.co.za'},
+{name:'Incredible Connection',cat:'Electronics',url:'https://www.incredible.co.za'},
+{name:'HiFi Corp',cat:'Electronics',url:'https://www.hificorp.co.za'},
+{name:'Computer Mania',cat:'Electronics',url:'https://www.computermania.co.za'},
+{name:'Builders',cat:'Home',url:'https://www.builders.co.za'},
+{name:'@home',cat:'Home',url:'https://www.home.co.za'},
+{name:'Bradlows',cat:'Home',url:'https://www.bradlows.co.za'},
+{name:'Russells',cat:'Home',url:'https://www.russells.co.za'},
+{name:'OK Furniture',cat:'Home',url:'https://www.okfurniture.co.za'},
+{name:'AutoZone',cat:'Automotive',url:'https://www.autozone.co.za'},
+{name:'Midas',cat:'Automotive',url:'https://www.midas.co.za'},
+{name:'Tiger Wheel & Tyre',cat:'Automotive',url:'https://www.twt.to'},
+{name:'Vodacom',cat:'Mobile',url:'https://www.vodacom.co.za'},
+{name:'MTN',cat:'Mobile',url:'https://www.mtn.co.za'},
+{name:'Telkom',cat:'Mobile',url:'https://www.telkom.co.za'},
+{name:'Cell C',cat:'Mobile',url:'https://www.cellc.co.za'}
+];
+function render(list){
+const g=document.getElementById('storeGrid');
+g.innerHTML=list.map(s=>`<div class="card"><h3>${s.name}</h3><p>${s.cat}</p><a target="_blank" href="${s.url}">Visit Store</a></div>`).join('');
+}
+function filterCategory(cat){
+if(cat==='all') render(stores);
+else render(stores.filter(s=>s.cat===cat));
+}
+function searchStores(){
+const q=document.getElementById('search').value.toLowerCase();
+render(stores.filter(s=>s.name.toLowerCase().includes(q)));
+}
+render(stores);
+</script>
+</body>
+</html>
